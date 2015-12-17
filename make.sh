@@ -46,8 +46,8 @@ cd /fdearms/finset/securesh/keys
 touch /fdearms/finset/securesh/keys/authorized_keys
 ssh-keygen -t rsa -N '' -C g0t0gr -f goto.rsa
 ssh-keygen -t rsa -N '' -C t4ip -f t4ip.rsa
-cat goto.rsa.pub >> /authorized_keys
-cat t4ip.rsa.pub >> /authorized_keys
+cat goto.rsa.pub >> ./authorized_keys
+cat t4ip.rsa.pub >> ./authorized_keys
 sudo cp -v './authorized_keys'  '{$TARGET_MNT}/root/.ssh/authorized_keys'
 sudo chmod 600 ${TARGET_MNT}/root/.ssh/authorized_keys
 cd /fdearms
