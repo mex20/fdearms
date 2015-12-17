@@ -35,20 +35,18 @@ echo -e 'auto usb0\nallow-hotplug usb0\niface usb0 inet static\n  address 10.0.0
 echo "t4.aratech.ouri" | sudo tee ${TARGET_MNT}/etc/hostname
 echo "gotogr  ALL=(ALL) NOPASSWD: ALL" | sudo tee -a ${TARGET_MNT}/etc/sudoers
 echo -e "127.0.1.1\tt4.aratech.ouri" | sudo tee -a ${TARGET_MNT}/etc/hosts
-sudo chroot $TARGET_MNT /usr/sbin/useradd -m -s /bin/bash gotogr
-sudo chroot $TARGET_MNT /usr/sbin/useradd -D -s /bin/bash t4ip
+sudo chroot $TARGET_MNT /usr/sbin/useradd -s /bin/bash -m gotogr
 sudo mkdir ${TARGET_MNT}/root/.ssh
 sudo chmod 700 ${TARGET_MNT}/root/.ssh
 sudo mkdir /finset/
 sudo mkdir /finset/securesh/
 sudo mkdir /finset/securesh/keys
-cd /finset/securesh/keys
-touch ./authorized_keys
+touch /home/$USER/fdearms/finset/securesh/keys/authorized_keys
 ssh-keygen -t rsa -N '' -C g0t0gr -f goto.rsa
 ssh-keygen -t rsa -N '' -C t4ip -f t4ip.rsa
-cat goto.rsa.pub >> ./authorized_keys
-cat t4ip.rsa.pub >> ./authorized_keys
-sudo cp -v './authorized_keys'  '{$TARGET_MNT}/root/.ssh/authorized_keys'
+cat goto.rsa.pub >> /home/$USER/fdearms/finset/securesh/keys/authorized_keys
+cat t4ip.rsa.pub >> /home/$USER/fdearms/finset/securesh/keys/authorized_keys
+sudo cp -v '/home/$USER/fdearms/finset/securesh/authorized_keys'  '{$TARGET_MNT}/root/.ssh/authorized_keys'
 sudo chmod 600 ${TARGET_MNT}/root/.ssh/authorized_keys
 cd $WORKING_DIR
  
