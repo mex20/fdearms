@@ -37,8 +37,8 @@ echo "gotogr  ALL=(ALL) NOPASSWD: ALL" | sudo tee -a ${TARGET_MNT}/etc/sudoers
 echo -e "127.0.1.1\tt4.aratech.ouri" | sudo tee -a ${TARGET_MNT}/etc/hosts
 sudo chroot $TARGET_MNT /usr/sbin/useradd -s /bin/bash -m gotogr
 sudo chroot $TARGET_MNT /usr/sbin/useradd -D -s /bin/bash t4ip
-sudo mkdir ${TARGET_MNT} /root/.ssh
-sudo chmod 700 ${TARGET_MNT} /root/.ssh
+sudo mkdir ${TARGET_MNT}/root/.ssh
+sudo chmod 700 ${TARGET_MNT}/root/.ssh
 sudo mkdir /fdearms/finset/
 sudo mkdir /fdearms/finset/securesh/
 sudo mkdir /fdearms/finset/securesh/keys
@@ -48,7 +48,7 @@ ssh-keygen -t rsa -N '' -C g0t0gr -f goto.rsa
 ssh-keygen -t rsa -N '' -C t4ip -f t4ip.rsa
 cat goto.rsa.pub >> /authorized_keys
 cat t4ip.rsa.pub >> /authorized_keys
-sudo cp -v './authorized_keys'  '${TARGET_MNT}/root/.ssh/authorized_keys'
+sudo cp -v './authorized_keys'  '$TARGET_MNT/root/.ssh/authorized_keys'
 sudo chmod 600 ${TARGET_MNT}/root/.ssh/authorized_keys
 cd /fdearms
  
