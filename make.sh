@@ -1,7 +1,7 @@
 export TARGET_DEV=/dev/sdc   
 export TARGET_MNT=/mnt       
-export WORKING_DIR=$HOME/fdearms
-mkdir $WORKING_DIR
+export WORKING_DIR=$HOME/fdearms/working
+sudo mkdir $WORKING_DIR
 cd $WORKING_DIR
 sudo parted $TARGET_DEV --script mklabel msdos
 sudo parted $TARGET_DEV --script mkpart primary ext4 5M 128M # boot
@@ -48,7 +48,7 @@ ssh-keygen -t rsa -N '' -C g0t0gr -f goto.rsa
 ssh-keygen -t rsa -N '' -C t4ip -f t4ip.rsa
 cat goto.rsa.pub >> ./authorized_keys
 cat t4ip.rsa.pub >> ./authorized_keys
-sudo cp -v './authorized_keys'  '{$TARGET_MNT}/root/.ssh/'
+sudo cp -v './authorized_keys'  '{$TARGET_MNT}/root/.ssh/authorized_keys'
 sudo chmod 600 ${TARGET_MNT}/root/.ssh/authorized_keys
 cd $WORKING_DIR
  
@@ -68,7 +68,7 @@ sudo make INSTALL_MOD_PATH=$TARGET_MNT ARCH=arm modules_install
 
 
 
-
+cd $WORKING_DIR
 
 
 
