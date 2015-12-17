@@ -1,6 +1,7 @@
 export TARGET_DEV=/dev/sdc   
 export TARGET_MNT=/mnt       
 export WORKING_DIR=$HOME/fdearms/working
+export $FINSET=/opt/finset
 sudo mkdir $WORKING_DIR
 cd $WORKING_DIR
 sudo parted $TARGET_DEV --script mklabel msdos
@@ -38,15 +39,14 @@ echo -e "127.0.1.1\tt4.aratech.ouri" | sudo tee -a ${TARGET_MNT}/etc/hosts
 sudo chroot $TARGET_MNT /usr/sbin/useradd -s /bin/bash -m gotogr
 sudo mkdir ${TARGET_MNT}/root/.ssh
 sudo chmod 700 ${TARGET_MNT}/root/.ssh
-sudo mkdir /finset/
-sudo mkdir /finset/securesh/
-sudo mkdir /finset/securesh/keys
-touch /home/$USER/fdearms/finset/securesh/keys/authorized_keys
+sudo mkdir /opt/finset/
+cd $FINSET
+touch $FINSET/authorized_keys
 ssh-keygen -t rsa -N '' -C g0t0gr -f goto.rsa
 ssh-keygen -t rsa -N '' -C t4ip -f t4ip.rsa
-cat goto.rsa.pub >> /home/$USER/fdearms/finset/securesh/keys/authorized_keys
-cat t4ip.rsa.pub >> /home/$USER/fdearms/finset/securesh/keys/authorized_keys
-sudo cp -v '/home/$USER/fdearms/finset/securesh/authorized_keys'  '{$TARGET_MNT}/root/.ssh/authorized_keys'
+cat goto.rsa.pub >> $FINSET/authorized_keys
+cat t4ip.rsa.pub >> $FINSET/authorized_keys
+sudo cp -v '$FINSET/authorized_keys'  '{$TARGET_MNT}/root/.ssh/authorized_keys'
 sudo chmod 600 ${TARGET_MNT}/root/.ssh/authorized_keys
 cd $WORKING_DIR
  
